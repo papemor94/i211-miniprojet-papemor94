@@ -1,5 +1,6 @@
 package com.example.rest;
 
+import com.example.rest.models.BibilothequeRepository;
 import com.example.rest.services.BibliothequeService;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -13,6 +14,7 @@ import java.net.URI;
  *
  */
 public class Main {
+
     // Base URI the Grizzly HTTP server will listen on
     public static final String BASE_URI = "http://0.0.0.0:8091/";
 
@@ -36,7 +38,11 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-
+        /***
+         *
+         * Ajoutons manuellement quequels oeuvres
+         */
+        BibilothequeRepository.getsInstance().ajouterLivre("cryptographie", "stinson", "malib");
 
         System.out.println();
         final HttpServer server = startServer();

@@ -1,9 +1,10 @@
 package com.example.rest.models;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.UUID;
-
 
 @XmlRootElement
 public class Livre implements Serializable{
@@ -13,8 +14,16 @@ public class Livre implements Serializable{
     private String auteur ;
 
 	public Livre() {
+
+		/*****
+		 *    id  generated automaticaly
+		 * */
 	      id   = UUID.randomUUID();
-		System.out.println(id +"a ete cree ");
+
+		/****
+		 * @ logging
+		 */
+
 	}
 
 	public UUID getId() {

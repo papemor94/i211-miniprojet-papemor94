@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -14,10 +13,7 @@ import com.example.rest.models.Livre;
 
 @Path("livres")
 public class BibliothequeService {
-	public BibilothequeRepository  bibilothequeRepository   ;
-
 	public BibliothequeService(){
-		bibilothequeRepository   = new BibilothequeRepository();
 	}
 	/**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -31,15 +27,15 @@ public class BibliothequeService {
     public List<Livre> getLivres() {
 
     	//System.out.println(bibilothequeRepository.getLivres());
-    	
-        return bibilothequeRepository.getLivres() ;
+		System.out.println(BibilothequeRepository.getsInstance().getLivres());
+        return BibilothequeRepository.getsInstance().getLivres() ;
     }
 
 	@Path("livres/{id}")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
     public Livre getLivre(@PathParam("id") UUID uuid){
-    	return bibilothequeRepository.getLivre(uuid);
+    	return BibilothequeRepository.getsInstance().getLivre(uuid);
 	}
     /*@PUT
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
