@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.example.rest.models.BibilothequeRepository;
 import com.example.rest.models.Livre;
@@ -32,7 +33,6 @@ public class BibliothequeService {
     	//System.out.println(bibilothequeRepository.getLivres());
     	
         return bibilothequeRepository.getLivres() ;
-
     }
 
 	@Path("livres/{id}")
@@ -49,6 +49,5 @@ public class BibliothequeService {
 		System.out.println("un livre a été ajouté");
 		return  1 ;
 	}*/
-
 }
 
