@@ -2,36 +2,44 @@ package com.example.rest.models;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
+@Table
 @XmlRootElement
 public class Livre implements Serializable{
-	private UUID id   ; 
+	@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column
+	private UUID studentId;
 	private String Categorie  ; 
 	private String nom ;   ; 
     private String auteur ;
 
-	public Livre() {
 
+	public Livre() {
+		studentId = UUID.randomUUID();
 		/*****
 		 *    id  generated automaticaly
 		 * */
-	      id   = UUID.randomUUID();
-
+	      //id   = UUID.randomUUID();
 		/****
 		 * @ logging
 		 */
 
 	}
 
-	public UUID getId() {
+	/*public UUID getId() {
 		return id;
-	}
+	}*/
 
 	public Livre(String nom, String auteur) {
+
 		super();
+		studentId = UUID.randomUUID();
 		this.nom = nom;
 		this.auteur = auteur;
 	}
@@ -55,7 +63,7 @@ public class Livre implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Livre [id=" + id + ", Categorie=" + Categorie + ", nom=" + nom + ", auteur=" + auteur + "]";
+		return ""+studentId+"Livre [ Categorie=" + Categorie + ", nom=" + nom + ", auteur=" + auteur + "]";
 	} 
 
 }
