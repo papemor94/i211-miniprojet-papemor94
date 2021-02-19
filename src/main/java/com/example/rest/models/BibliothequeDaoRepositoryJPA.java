@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class BibliothequeDaoRepositoryJPA  implements IBibliothequeDaoRepositoryJPA{
 
@@ -32,9 +33,34 @@ public static EntityManager  entityManager;
     }
 
     @Override
+    public void save(Book book) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(book);
+        entityManager.getTransaction().commit();
+
+    }
+
+    @Override
+    public void save(Auteur auteur) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(auteur);
+        entityManager.getTransaction().commit();
+
+    }
+
+    @Override
     public List<Livre> findAll() {
         entityManager.getTransaction().begin();
         Query q =entityManager.createQuery("select s from Livre s");
+        entityManager.getTransaction().commit();
+
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Book> getAllBook() {
+        entityManager.getTransaction().begin();
+        Query q =entityManager.createQuery("select s from Book s");
         entityManager.getTransaction().commit();
 
         return q.getResultList();

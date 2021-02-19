@@ -1,5 +1,7 @@
 package com.example.rest;
+import com.example.rest.models.Auteur;
 import com.example.rest.models.BibliothequeDaoRepositoryJPA;
+import com.example.rest.models.Book;
 import com.example.rest.models.Livre;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -39,6 +41,11 @@ public class Main {
 
 BibliothequeDaoRepositoryJPA bibliothequeDaoRepositoryJPA= new BibliothequeDaoRepositoryJPA();
 
+Auteur aut1 = new Auteur("Pape" , "Mor") ;
+bibliothequeDaoRepositoryJPA.save(aut1);
+bibliothequeDaoRepositoryJPA.save(new Book("crous", "kdfj", aut1));
+
+        System.out.println("books"+bibliothequeDaoRepositoryJPA.getAllBook());
 /*Livre livre  = new Livre("crypto" , "Stinson") ;
 livre.setCategorie("ousm");
         System.out.println(livre.toString());

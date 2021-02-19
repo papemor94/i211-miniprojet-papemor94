@@ -3,7 +3,9 @@ package com.example.rest.models;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,13 +13,15 @@ import java.util.UUID;
 @Table
 @XmlRootElement
 public class Livre implements Serializable{
+	@XmlAttribute
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private UUID studentId;
 	private String Categorie  ; 
-	private String nom ;   ; 
+	private String nom ;
     private String auteur ;
+
 
 
 	public Livre() {
