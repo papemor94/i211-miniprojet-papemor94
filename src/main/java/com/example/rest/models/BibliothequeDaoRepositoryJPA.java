@@ -32,20 +32,13 @@ public static EntityManager  entityManager;
 
     }
 
-    @Override
-    public void save(Book book) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(book);
-        entityManager.getTransaction().commit();
 
-    }
 
     @Override
     public void save(Auteur auteur) {
         entityManager.getTransaction().begin();
         entityManager.persist(auteur);
         entityManager.getTransaction().commit();
-
     }
 
     @Override
@@ -57,14 +50,6 @@ public static EntityManager  entityManager;
         return q.getResultList();
     }
 
-    @Override
-    public List<Book> getAllBook() {
-        entityManager.getTransaction().begin();
-        Query q =entityManager.createQuery("select s from Book s");
-        entityManager.getTransaction().commit();
-
-        return q.getResultList();
-    }
 
     @Override
     public List<Livre> findByCategorie(String mc) {
@@ -96,8 +81,12 @@ public static EntityManager  entityManager;
     @Override
     public void init() {
         entityManager.getTransaction().begin();
-        entityManager.persist(new Livre("Cryptographie", "Pape CISSE" ,"Science"));
-        entityManager.persist(new Livre("une vie de boy", "Ferdinand Oyono" ,"Roman"));
+        Auteur aut1 =  new Auteur("mf","lfo") ;
+        entityManager.persist(aut1);
+        Auteur aut2 =  new Auteur("mf","lfo") ;
+        entityManager.persist(aut2);
+        entityManager.persist(new Livre("Cryptographie", aut1 ,"Science"));
+        entityManager.persist(new Livre("une vie de boy", aut2, "Roman"));
         System.out.println("lkf");
 
         entityManager.getTransaction().commit();

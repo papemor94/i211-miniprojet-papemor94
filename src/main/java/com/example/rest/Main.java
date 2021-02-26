@@ -1,18 +1,13 @@
 package com.example.rest;
 import com.example.rest.models.Auteur;
 import com.example.rest.models.BibliothequeDaoRepositoryJPA;
-import com.example.rest.models.Book;
-import com.example.rest.models.Livre;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URI;
-import java.util.Scanner;
+
 /**
  * Main class.
  *
@@ -41,22 +36,8 @@ public class Main {
 
 BibliothequeDaoRepositoryJPA bibliothequeDaoRepositoryJPA= new BibliothequeDaoRepositoryJPA();
 
-Auteur aut1 = new Auteur("Pape" , "Mor") ;
-bibliothequeDaoRepositoryJPA.save(aut1);
-bibliothequeDaoRepositoryJPA.save(new Book("crous", "kdfj", aut1));
 bibliothequeDaoRepositoryJPA.init();
 
-        System.out.println("books"+bibliothequeDaoRepositoryJPA.getAllBook());
-/*Livre livre  = new Livre("crypto" , "Stinson") ;
-livre.setCategorie("ousm");
-        System.out.println(livre.toString());
-        bibliothequeDaoRepositoryJPA.save(livre);
-*
-/*  System.out.println(bibliothequeDaoRepositoryJPA.findAll());
-        System.out.println( bibliothequeDaoRepositoryJPA.findByCategorie("cat111"));
-*/
-        //System.out.println("Generated Employee ID = " + employee.getEmployeeId());
-       System.out.println();
         final HttpServer server = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));

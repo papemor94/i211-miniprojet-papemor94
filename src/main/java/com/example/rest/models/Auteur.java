@@ -10,14 +10,17 @@ import java.io.Serializable;
 @XmlRootElement
 public class Auteur implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
-    private Long id ;
+    private double id ;
     private String firstname ;
     private String lastname ;
 
-    public Auteur(){}
-    public Long getId() {
+    public Auteur(){
+        this.id = Math.random()*Math.random();
+
+    }
+    public double getId() {
         return id;
     }
 
@@ -31,6 +34,8 @@ public class Auteur implements Serializable {
     }
 
     public Auteur(String firstname, String lastname) {
+        this.id =Math.random()*Math.random() ;
+
         this.firstname = firstname;
         this.lastname = lastname;
     }

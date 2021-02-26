@@ -8,10 +8,9 @@ import java.util.UUID;
 public interface IBibliothequeDaoRepositoryJPA {
 
     public void save(Livre livre);
-    public void save(Book book);
+
     public void save(Auteur auteur);
     public List<Livre> findAll() ;
-    public List<Book> getAllBook();
     public List<Livre> findByCategorie(String ms) ;
     public void update(Livre livre) ;
     public void deleteById(UUID id ) ;

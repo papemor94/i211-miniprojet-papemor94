@@ -4,6 +4,7 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
@@ -20,7 +21,13 @@ public class Livre implements Serializable{
 	private UUID livreId;
 	private String Categorie  ; 
 	private String nom ;
-    private String auteur ;
+
+
+	@ManyToOne(fetch = FetchType.EAGER, optional = true)
+	@JoinColumn(nullable = false)
+
+	@XmlElement
+	private  Auteur   auteur ;
 
 
 	public Livre() {
@@ -31,7 +38,7 @@ public class Livre implements Serializable{
 		return livreId;
 	}
 
-	public Livre(String nom, String auteur ,String categorie) {
+	public Livre(String nom, Auteur auteur ,String categorie) {
 		super();
 		livreId = UUID.randomUUID();
 		this.nom = nom;
@@ -50,10 +57,10 @@ public class Livre implements Serializable{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getAuteur() {
+	public Auteur getAuteur() {
 		return auteur;
 	}
-	public void setAuteur(String auteur) {
+	public void setAuteur(Auteur auteur) {
 		this.auteur = auteur;
 	}
 	@Override

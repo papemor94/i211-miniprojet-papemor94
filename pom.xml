@@ -37,7 +37,7 @@
             <version>2.2.1</version>
         </dependency>
 
-        <!---uncomment this to get JSON support:  -->
+        <!---uncomment this to get JSON support:-->
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
