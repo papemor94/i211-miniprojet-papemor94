@@ -17,35 +17,26 @@ public class Livre implements Serializable{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private UUID studentId;
+	private UUID livreId;
 	private String Categorie  ; 
 	private String nom ;
     private String auteur ;
 
 
-
 	public Livre() {
-		studentId = UUID.randomUUID();
-		/*****
-		 *    id  generated automaticaly
-		 * */
-	      //id   = UUID.randomUUID();
-		/****
-		 * @ logging
-		 */
-
+		livreId = UUID.randomUUID();
 	}
 
-	/*public UUID getId() {
-		return id;
-	}*/
+	public UUID getId() {
+		return livreId;
+	}
 
-	public Livre(String nom, String auteur) {
-
+	public Livre(String nom, String auteur ,String categorie) {
 		super();
-		studentId = UUID.randomUUID();
+		livreId = UUID.randomUUID();
 		this.nom = nom;
 		this.auteur = auteur;
+		this.Categorie = categorie ;
 	}
 	public String getCategorie() {
 		return Categorie;
@@ -67,7 +58,7 @@ public class Livre implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return ""+studentId+"Livre [ Categorie=" + Categorie + ", nom=" + nom + ", auteur=" + auteur + "]";
+		return ""+livreId+"Livre [ Categorie=" + Categorie + ", nom=" + nom + ", auteur=" + auteur + "]";
 	} 
 
 }

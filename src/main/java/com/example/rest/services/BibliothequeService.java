@@ -43,13 +43,13 @@ public class BibliothequeService {
     public Livre getLivre(@PathParam("id") UUID uuid){
     	return bibliothequeDaoRepositoryJPA.findById(uuid);
 	}
-    /*@PUT
-	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
-	public void create(String categorie  , String nom , String auteur  ){
-        Livre  livre  = new Livre(nom  , auteur) ;
-        livre.setCategorie(categorie);
-    	bibliothequeDaoRepositoryJPA.save(livre);
 
-	}*/
+    @PUT
+	@Consumes({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
+	public void create(Livre livre ){
+       // Livre  livre  = new Livre(nom  , auteur , categorie) ;
+        //livre.setCategorie(categorie);
+    	bibliothequeDaoRepositoryJPA.save(livre);
+	}
 }
 

@@ -44,6 +44,7 @@ BibliothequeDaoRepositoryJPA bibliothequeDaoRepositoryJPA= new BibliothequeDaoRe
 Auteur aut1 = new Auteur("Pape" , "Mor") ;
 bibliothequeDaoRepositoryJPA.save(aut1);
 bibliothequeDaoRepositoryJPA.save(new Book("crous", "kdfj", aut1));
+bibliothequeDaoRepositoryJPA.init();
 
         System.out.println("books"+bibliothequeDaoRepositoryJPA.getAllBook());
 /*Livre livre  = new Livre("crypto" , "Stinson") ;

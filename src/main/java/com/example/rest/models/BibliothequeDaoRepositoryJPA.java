@@ -92,5 +92,16 @@ public static EntityManager  entityManager;
         entityManager.getTransaction().commit();
         return null;
     }
+
+    @Override
+    public void init() {
+        entityManager.getTransaction().begin();
+        entityManager.persist(new Livre("Cryptographie", "Pape CISSE" ,"Science"));
+        entityManager.persist(new Livre("une vie de boy", "Ferdinand Oyono" ,"Roman"));
+        System.out.println("lkf");
+
+        entityManager.getTransaction().commit();
+
+    }
 }
 

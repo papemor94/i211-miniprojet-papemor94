@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table
 @XmlRootElement
-
 public class Book {
 
     @XmlAttribute
@@ -20,16 +19,16 @@ public class Book {
     private Long id  ;
     private String name ;
     private String title  ;
+
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
-
-
 
     private Auteur auteur ;      // Add Wrapper
 
 
    public Book(){}
-    public Book(String name,  String title, Auteur auteur) {
+    public Book(String name, String title, Auteur auteur) {
        this.name = name ;
         this.title = title;
         this.auteur = auteur;
@@ -42,13 +41,9 @@ public class Book {
         return name;
     }
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    }*/
 
     public String getTitle() {
         return title;
@@ -65,7 +60,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                //"id=" + id +//
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", auteur=" + auteur +

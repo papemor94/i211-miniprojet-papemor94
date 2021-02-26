@@ -16,6 +16,7 @@ public interface IBibliothequeDaoRepositoryJPA {
     public void update(Livre livre) ;
     public void deleteById(UUID id ) ;
     public Livre findById(UUID idd) ;
+    public void init();
 
 
 }
