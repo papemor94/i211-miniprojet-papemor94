@@ -11,11 +11,7 @@
     <dependencyManagement>
         <dependencies>
 <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-<dependency>
-   <groupId>javax.xml.bind</groupId>
-   <artifactId>jaxb-api</artifactId>
-   <version>2.2.1</version>
-</dependency>
+
             <dependency>
                 <groupId>org.glassfish.jersey</groupId>
                 <artifactId>jersey-bom</artifactId>
@@ -37,12 +33,12 @@
             <version>2.2.1</version>
         </dependency>
 
-        <!---uncomment this to get JSON support:-->
+        <!---uncomment this to get JSON support:
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
-
+-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

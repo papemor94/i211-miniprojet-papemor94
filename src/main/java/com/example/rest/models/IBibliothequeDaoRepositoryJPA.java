@@ -13,8 +13,8 @@ public interface IBibliothequeDaoRepositoryJPA {
     public List<Livre> findAll() ;
     public List<Livre> findByCategorie(String ms) ;
     public void update(Livre livre) ;
-    public void deleteById(UUID id ) ;
-    public Livre findById(UUID idd) ;
+    public void deleteById(int id ) ;
+    public Livre findById(int idd) ;
     public void init();
 
 

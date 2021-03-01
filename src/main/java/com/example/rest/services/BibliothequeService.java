@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import com.example.rest.models.BibliothequeDaoRepositoryJPA;
 import com.example.rest.models.Livre;
 
-@Path("livres")
+@Path("/bibliotheque")
 public class BibliothequeService {
 
     BibliothequeDaoRepositoryJPA  bibliothequeDaoRepositoryJPA= new BibliothequeDaoRepositoryJPA() ;
@@ -23,20 +23,21 @@ public class BibliothequeService {
      *
      * @return String that will be returned as a text/plain response.
      */
-
+	@Path("/livres")
     @GET
     @Produces({MediaType.APPLICATION_JSON ,MediaType.APPLICATION_XML})
     public List<Livre> getLivres(){
         System.out.println(bibliothequeDaoRepositoryJPA.findAll());
         return bibliothequeDaoRepositoryJPA.findAll();
     }
-	@Path("livres/{id}")
+	@Path("/livres/{idP}")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
-    public Livre getLivre(@PathParam("id") UUID uuid){
-    	return bibliothequeDaoRepositoryJPA.findById(uuid);
+    public Livre getLivre(@PathParam(value  = "idP")int idP){
+		System.out.println("search by identity");
+		System.out.println(bibliothequeDaoRepositoryJPA.findById(idP)+ "par id ");
+    	return bibliothequeDaoRepositoryJPA.findById(idP);
 	}
-
     @PUT
 	@Consumes({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
 	public void create(Livre livre ){

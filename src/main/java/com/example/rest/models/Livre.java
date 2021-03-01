@@ -14,11 +14,12 @@ import java.util.UUID;
 @Table
 @XmlRootElement
 public class Livre implements Serializable{
-	@XmlAttribute
+	//@XmlAttribute
+	@XmlElement
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private UUID livreId;
+	private int livreId;
 	private String Categorie  ; 
 	private String nom ;
 
@@ -26,21 +27,20 @@ public class Livre implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, optional = true)
 	@JoinColumn(nullable = false)
 
-	@XmlElement
+	//@XmlElement
 	private  Auteur   auteur ;
 
 
 	public Livre() {
-		livreId = UUID.randomUUID();
+		//livreId = UUID.randomUUID();
 	}
-
-	public UUID getId() {
+	public int getId() {
 		return livreId;
 	}
 
 	public Livre(String nom, Auteur auteur ,String categorie) {
 		super();
-		livreId = UUID.randomUUID();
+		//livreId = UUID.randomUUID();
 		this.nom = nom;
 		this.auteur = auteur;
 		this.Categorie = categorie ;

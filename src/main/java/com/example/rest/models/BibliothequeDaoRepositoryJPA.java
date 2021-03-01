@@ -66,16 +66,16 @@ public static EntityManager  entityManager;
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(int id) {
 
     }
 
     @Override
-    public Livre findById(UUID uuid) {
+    public Livre findById(int uuid) {
         entityManager.getTransaction().begin();
-        entityManager.find(Livre.class ,uuid );
+        Livre livre =entityManager.find(Livre.class ,uuid );
         entityManager.getTransaction().commit();
-        return null;
+        return livre;
     }
 
     @Override

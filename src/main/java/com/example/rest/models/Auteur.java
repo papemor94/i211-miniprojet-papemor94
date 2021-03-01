@@ -2,6 +2,7 @@ package com.example.rest.models;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import java.io.Serializable;
 public class Auteur implements Serializable {
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlAttribute
+    @XmlElement
     private double id ;
     private String firstname ;
     private String lastname ;
