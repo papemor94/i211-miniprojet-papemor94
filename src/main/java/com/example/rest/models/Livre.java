@@ -1,6 +1,7 @@
 package com.example.rest.models;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -10,62 +11,28 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Data
+@Getter @Setter
+@Builder
 @Entity
 @Table
+@NoArgsConstructor
 @XmlRootElement
 public class Livre implements Serializable{
-	//@XmlAttribute
-	@XmlElement
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
+	@XmlElement
 	private int livreId;
 	private String Categorie  ; 
 	private String nom ;
 
-
-	@ManyToOne(fetch = FetchType.EAGER, optional = true)
-	@JoinColumn(nullable = false)
-
-	//@XmlElement
-	private  Auteur   auteur ;
-
-
-	public Livre() {
-		//livreId = UUID.randomUUID();
-	}
-	public int getId() {
-		return livreId;
-	}
-
-	public Livre(String nom, Auteur auteur ,String categorie) {
-		super();
-		//livreId = UUID.randomUUID();
-		this.nom = nom;
-		this.auteur = auteur;
-		this.Categorie = categorie ;
-	}
-	public String getCategorie() {
-		return Categorie;
-	}
-	public void setCategorie(String categorie) {
+	public Livre(int livreId, String categorie, String nom, Auteur auteur) {
+		this.livreId = livreId;
 		Categorie = categorie;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
 		this.nom = nom;
-	}
-	public Auteur getAuteur() {
-		return auteur;
-	}
-	public void setAuteur(Auteur auteur) {
 		this.auteur = auteur;
 	}
-	@Override
-	public String toString() {
-		return ""+livreId+"Livre [ Categorie=" + Categorie + ", nom=" + nom + ", auteur=" + auteur + "]";
-	} 
-
+	@ManyToOne()
+	private  Auteur   auteur ;
 }

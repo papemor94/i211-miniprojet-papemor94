@@ -18,10 +18,32 @@ import java.util.logging.Logger;
 public class BibliothequeDaoRepositoryJPA  implements IBibliothequeDaoRepositoryJPA{
 
 public static EntityManager  entityManager;
-    public BibliothequeDaoRepositoryJPA() {
+    public BibliothequeDaoRepositoryJPA(){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
          entityManager = entityManagerFactory.createEntityManager();
 
+    }
+    @Override
+    public void init() {
+        entityManager.getTransaction().begin();
+        Auteur aut1 =   Auteur.builder()
+                .firstname("a1")
+                .lastname("f1")
+                .build();
+
+        Auteur aut2 = Auteur.builder()
+                .firstname("a2")
+                .lastname("f21")
+                .build();
+
+        entityManager.persist(aut1);
+        entityManager.persist(aut2);
+
+
+        entityManager.persist( Livre.builder().nom("Cryptographie").Categorie("Science").auteur(aut1).build());
+        entityManager.persist( Livre.builder().nom("une vie de boy").Categorie("Roman").auteur(aut1).build());
+
+        entityManager.getTransaction().commit();
     }
     @Override
 
@@ -31,18 +53,34 @@ public static EntityManager  entityManager;
         entityManager.getTransaction().commit();
 
     }
-
-
-
     @Override
-    public void save(Auteur auteur) {
+    public void removeBook(int id) {
         entityManager.getTransaction().begin();
-        entityManager.persist(auteur);
+        Livre livre =entityManager.find(Livre.class ,id );
+        entityManager.remove( livre);
         entityManager.getTransaction().commit();
+
     }
 
+
     @Override
-    public List<Livre> findAll() {
+    public Livre findBookById(int uuid) {
+        entityManager.getTransaction().begin();
+        Livre livre =entityManager.find(Livre.class ,uuid );
+        entityManager.getTransaction().commit();
+        System.out.println("trouvee" + livre.toString());
+        return livre;
+    }
+    @Override
+    public List<Livre> findBookByCategorie(String mc) {
+        entityManager.getTransaction().begin();
+        Query q =entityManager.createQuery("select s from Livre s where s.Categorie like :x");
+        q.setParameter("x" , "%"+mc+"%");
+        entityManager.getTransaction().commit();
+        return q.getResultList();
+    }
+    @Override
+    public List<Livre> findAllBook() {
         entityManager.getTransaction().begin();
         Query q =entityManager.createQuery("select s from Livre s");
         entityManager.getTransaction().commit();
@@ -52,45 +90,45 @@ public static EntityManager  entityManager;
 
 
     @Override
-    public List<Livre> findByCategorie(String mc) {
+    public void save(Auteur auteur) {
         entityManager.getTransaction().begin();
-        Query q =entityManager.createQuery("select s from Livre s where s.Categorie like :x");
-        q.setParameter("x" , "%"+mc+"%");
+        entityManager.persist(auteur);
         entityManager.getTransaction().commit();
+    }
+    @Override
+    public Auteur findAuthor(int id) {
+        entityManager.getTransaction().begin();
+        Auteur auteur =entityManager.find(Auteur.class ,id );
+        entityManager.getTransaction().commit();
+        return auteur;
+    }
+
+    @Override
+    public void removeAuteur(int id) {
+        entityManager.getTransaction().begin();
+        Auteur auteur =entityManager.find(Auteur.class ,id );
+        entityManager.remove( auteur);
+        entityManager.getTransaction().commit();
+
+    }
+
+    @Override
+    public List<Auteur> findAllAuthor() {
+        entityManager.getTransaction().begin();
+        Query q =entityManager.createQuery("select s from Auteur s");
+        entityManager.getTransaction().commit();
+
         return q.getResultList();
     }
 
-    @Override
-    public void update(Livre livre) {
 
+    public static BibliothequeDaoRepositoryJPA getInstance() {
+        if (serverInstance == null) {
+            serverInstance = new BibliothequeDaoRepositoryJPA();
+        }
+        return serverInstance;
     }
+    private static BibliothequeDaoRepositoryJPA serverInstance;
 
-    @Override
-    public void deleteById(int id) {
-
-    }
-
-    @Override
-    public Livre findById(int uuid) {
-        entityManager.getTransaction().begin();
-        Livre livre =entityManager.find(Livre.class ,uuid );
-        entityManager.getTransaction().commit();
-        return livre;
-    }
-
-    @Override
-    public void init() {
-        entityManager.getTransaction().begin();
-        Auteur aut1 =  new Auteur("mf","lfo") ;
-        entityManager.persist(aut1);
-        Auteur aut2 =  new Auteur("mf","lfo") ;
-        entityManager.persist(aut2);
-        entityManager.persist(new Livre("Cryptographie", aut1 ,"Science"));
-        entityManager.persist(new Livre("une vie de boy", aut2, "Roman"));
-        System.out.println("lkf");
-
-        entityManager.getTransaction().commit();
-
-    }
 }
 

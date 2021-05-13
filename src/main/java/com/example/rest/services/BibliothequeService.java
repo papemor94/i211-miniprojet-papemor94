@@ -6,44 +6,133 @@ import java.util.UUID;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import com.example.rest.models.Auteur;
 import com.example.rest.models.BibliothequeDaoRepositoryJPA;
 import com.example.rest.models.Livre;
+import lombok.experimental.Delegate;
 
 @Path("/bibliotheque")
 public class BibliothequeService {
 
-    BibliothequeDaoRepositoryJPA  bibliothequeDaoRepositoryJPA= new BibliothequeDaoRepositoryJPA() ;
+    BibliothequeDaoRepositoryJPA  bibliothequeDaoRepositoryJPA=  BibliothequeDaoRepositoryJPA.getInstance() ;
+
 
     public BibliothequeService(){
-
 	}
 	/**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+	 *
+	 * initilize the database
+	 * @return
+	 */
+	@Path("/init")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON ,MediaType.APPLICATION_XML})
+	public String init(){
+		bibliothequeDaoRepositoryJPA.init();
+		return  " database initialized" ;
+	}
+	/**
+	 *
+	 * @return  :  all books of the database
+	 */
 	@Path("/livres")
     @GET
     @Produces({MediaType.APPLICATION_JSON ,MediaType.APPLICATION_XML})
     public List<Livre> getLivres(){
-        System.out.println(bibliothequeDaoRepositoryJPA.findAll());
-        return bibliothequeDaoRepositoryJPA.findAll();
+        System.out.println(bibliothequeDaoRepositoryJPA.findAllBook());
+        return bibliothequeDaoRepositoryJPA.findAllBook();
     }
-	@Path("/livres/{idP}")
+	/**
+	 *
+	 *  add a new Book
+	 * @param livre
+	 * @return
+	 */
+	@Path("/livres")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String create(Livre livre ){
+		bibliothequeDaoRepositoryJPA.save(livre);
+		return " Book "+livre.getLivreId()+" saved " ;
+	}
+	/**
+	 *
+	 * find a Book by id
+	 * @param id
+	 * @return
+	 */
+	@Path("/livres/{id}")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
-    public Livre getLivre(@PathParam(value  = "idP")int idP){
-		System.out.println("search by identity");
-		System.out.println(bibliothequeDaoRepositoryJPA.findById(idP)+ "par id ");
-    	return bibliothequeDaoRepositoryJPA.findById(idP);
+    public Livre getBook(@PathParam(value  = "id")int id){
+		System.out.println(bibliothequeDaoRepositoryJPA.findBookById(id)+ "par id ");
+    	return bibliothequeDaoRepositoryJPA.findBookById(id);
 	}
-    @PUT
-	@Consumes({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
-	public void create(Livre livre ){
-       // Livre  livre  = new Livre(nom  , auteur , categorie) ;
-        //livre.setCategorie(categorie);
-    	bibliothequeDaoRepositoryJPA.save(livre);
+	/**
+	 *
+	 * remove book by id
+	 * @param id
+	 * @return
+	 */
+	@Path("/livres/{id}")
+	@DELETE
+	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
+	public String removeBook(@PathParam(value  = "id")int id){
+		System.out.println("search by identity");
+		bibliothequeDaoRepositoryJPA.removeBook(id);
+		return " Book "+id+" deleted " ;
+	}
+	/**
+	 *
+	 * @return  :  all authors of the database
+	 */
+	@Path("/auteurs")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON ,MediaType.APPLICATION_XML})
+	public List<Auteur> getAuthors(){
+		System.out.println(bibliothequeDaoRepositoryJPA.findAllAuthor());
+		return bibliothequeDaoRepositoryJPA.findAllAuthor();
+	}
+
+	/**
+	 *
+	 *  add a new Author
+	 * @param auteur
+	 * @return
+	 */
+	@Path("/auteurs")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String create(Auteur auteur ){
+		bibliothequeDaoRepositoryJPA.save(auteur);
+		return " Book "+auteur.getId()+" saved " ;
+	}
+	/**
+	 *
+	 * find an Author by id
+	 * @param id
+	 * @return
+	 */
+	@Path("/auteurs/{id}")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
+	public Auteur getAuthor(@PathParam(value  = "id")int id){
+		System.out.println(bibliothequeDaoRepositoryJPA.findAuthor(id)+ "par id ");
+		return bibliothequeDaoRepositoryJPA.findAuthor(id);
+	}
+	/**
+	 *
+	 * remove Author by id
+	 * @param id
+	 * @return
+	 */
+	@Path("/auteurs/{id}")
+	@DELETE
+	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
+	public String removeAuthor(@PathParam(value  = "id")int id){
+		System.out.println("search by identity");
+		bibliothequeDaoRepositoryJPA.removeAuteur(id);
+		return " Book "+id+" deleted " ;
 	}
 }
 
