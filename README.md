@@ -1,4 +1,4 @@
-Ceci est un mini projet qui a pour but de mettre en oeuvre les connaissances dans les technologies suivanres
+Ceci est un mini projet qui a pour but de mettre en oeuvre les connaissances dans les technologies suivantes:
 - **JPA** (dont l'implémentation de référence Hibernate)
 - **Restful** (  Jersey et Grizzly)
 - **Git**
