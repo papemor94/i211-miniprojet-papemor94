@@ -1,0 +1,21 @@
+version: '3'
+services: 
+  mysql:
+      image: mysql:latest
+      restart: always
+      container_name: mysql
+      environment:
+          MYSQL_ROOT_PASSWORD: admin
+      ports: 
+          - 3306:3306
+  miniproj:
+      restart: always
+      image: miniproj
+      container_name: miniproj
+      ports:
+          - 8091:8091
+            #volumes:
+            # - ./pipeline:/usr/share/logstash/pipeline:ro
+      depends_on:
+          - mysql
+       # - ./pipeline:/usr/share/logstash/pipeline:ro

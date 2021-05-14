@@ -1,6 +1,0 @@
-com\example\rest\models\Livre.class
-com\example\rest\models\IBibliothequeDaoRepositoryJPA.class
-com\example\rest\Main.class
-com\example\rest\MyResource.class
-com\example\rest\services\BibliothequeService.class
-com\example\rest\models\BibliothequeDaoRepositoryJPA.class
