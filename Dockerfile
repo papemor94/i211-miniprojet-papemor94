@@ -11,6 +11,6 @@ RUN mvn clean compile package
 # Second stage: minimal runtime environment
 From openjdk:8-jre-alpine
 # copy jar from the first stage
-COPY --from=builder services/target/jersey-service-1.0-SNAPSHOT-jar-with-dependencies.jar msb.jar
+COPY --from=builder services/target/jersey-service-1.0-SNAPSHOT-withdependencies.jar msb.jar
 # run jar
 CMD ["java", "-jar", "msb.jar"]

@@ -6,10 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,6 +54,11 @@ public static EntityManager  entityManager;
     public void removeBook(int id) {
         entityManager.getTransaction().begin();
         Livre livre =entityManager.find(Livre.class ,id );
+
+        if (livre == null) {
+            throw new EntityNotFoundException("Can't find Livre for ID "
+                    + id);
+        }
         entityManager.remove( livre);
         entityManager.getTransaction().commit();
 
@@ -67,6 +69,11 @@ public static EntityManager  entityManager;
     public Livre findBookById(int uuid) {
         entityManager.getTransaction().begin();
         Livre livre =entityManager.find(Livre.class ,uuid );
+
+       if (livre == null) {
+            throw new EntityNotFoundException("Can't find Livre for ID "
+                    + uuid);
+        }
         entityManager.getTransaction().commit();
         System.out.println("trouvee" + livre.toString());
         return livre;
@@ -99,6 +106,11 @@ public static EntityManager  entityManager;
     public Auteur findAuthor(int id) {
         entityManager.getTransaction().begin();
         Auteur auteur =entityManager.find(Auteur.class ,id );
+
+        if (auteur == null) {
+            throw new EntityNotFoundException("Can't find Author for ID "
+                    + id);
+        }
         entityManager.getTransaction().commit();
         return auteur;
     }
@@ -107,6 +119,11 @@ public static EntityManager  entityManager;
     public void removeAuteur(int id) {
         entityManager.getTransaction().begin();
         Auteur auteur =entityManager.find(Auteur.class ,id );
+
+        if (auteur == null) {
+                throw new EntityNotFoundException("Can't find Author for ID "
+                    + id);
+        }
         entityManager.remove( auteur);
         entityManager.getTransaction().commit();
 

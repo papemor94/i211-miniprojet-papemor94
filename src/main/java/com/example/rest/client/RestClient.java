@@ -1,7 +1,6 @@
 package com.example.rest.client;
 
 
-
 import lombok.extern.java.Log;
 
 import javax.ws.rs.client.Client;
@@ -21,40 +20,30 @@ public class RestClient {
         Client client = ClientBuilder.newClient();
         WebTarget webResource = client.target("http://localhost:8091");
 
+        // init the database
+        String response  = webResource.path("/bibliotheque/init").request().get(String.class) ;
+        System.out.println(response);
+
+        // get all books
         String res = webResource.path("/bibliotheque/livres").request().get(String.class) ;
         System.out.println(res);
 
-      /*  //Log in to get the token with basic authentication
-        String login = "admin" ;
-        String password  = "admin" ;
-        String token = webResource.path("android/auth")
-                .request()
-                .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString((login + ":" + password).getBytes()))
-                .get(String.class);
-        System.out.println(token);
-        token = token.substring(9,token.length()-1);
-        System.out.println(token);
 
+        // get a book by id
+       // String res2 = webResource.path("/bibliotheque/livres/3").request().get(String.class) ;
+        //System.out.println(res2);
 
-
-        //log.info(result);
-        System.out.println("response from server auth secure :  " + result.substring(14,result.length()-1));
 
         // effectuer un post en mod non secure
-        String input  = "{\"firstname\" :\"Ablaye\" , \"lastname\": \"FOFANA\" , \"login\": \"log\", \"password\":\"pass\", \"isAdmin\":1}";
-
+        String input  = "{\"firstname\" :\"Jacques\" , \"lastname\": \"Fal\" , \"login\": \"log\", \"password\":\"pass\", \"isAdmin\":1}";
+        System.out.println(input);
         // on veut recuperer dui Json don
-       String  result2 = webResource.path("android/utilisateurs")
+       String  result2 = webResource.path("/bibliotheque/livres")
                 .request()
-                .header("Authorization", "Bearer " + token)
                 .accept(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(input, MediaType.APPLICATION_JSON), String.class);
         System.out.println("response post method  :  " + result2);
 
-
-
-*/
 
     }
 }
