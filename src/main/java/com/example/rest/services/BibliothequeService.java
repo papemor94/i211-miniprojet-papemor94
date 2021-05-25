@@ -3,6 +3,7 @@ package com.example.rest.services;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -13,9 +14,7 @@ import lombok.experimental.Delegate;
 
 @Path("/bibliotheque")
 public class BibliothequeService {
-
     BibliothequeDaoRepositoryJPA  bibliothequeDaoRepositoryJPA=  BibliothequeDaoRepositoryJPA.getInstance() ;
-
 
     public BibliothequeService(){
 	}
@@ -65,8 +64,15 @@ public class BibliothequeService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
     public Livre getBook(@PathParam(value  = "id")int id){
-		System.out.println(bibliothequeDaoRepositoryJPA.findBookById(id)+ "par id ");
-    	return bibliothequeDaoRepositoryJPA.findBookById(id);
+		try {
+
+
+			System.out.println(bibliothequeDaoRepositoryJPA.findBookById(id) + "par id ");
+
+		}catch(EntityNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		return bibliothequeDaoRepositoryJPA.findBookById(id);
 	}
 	/**
 	 *
@@ -79,8 +85,12 @@ public class BibliothequeService {
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
 	public String removeBook(@PathParam(value  = "id")int id){
 		System.out.println("search by identity");
-		bibliothequeDaoRepositoryJPA.removeBook(id);
-		return " Book "+id+" deleted " ;
+		try {
+			bibliothequeDaoRepositoryJPA.removeBook(id);
+		}catch(EntityNotFoundException e){
+		System.out.println(e.getMessage());
+	    }
+		return " Book "+id+" is deleted " ;
 	}
 	/**
 	 *
@@ -117,7 +127,11 @@ public class BibliothequeService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
 	public Auteur getAuthor(@PathParam(value  = "id")int id){
+		try {
 		System.out.println(bibliothequeDaoRepositoryJPA.findAuthor(id)+ "par id ");
+		}catch(EntityNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 		return bibliothequeDaoRepositoryJPA.findAuthor(id);
 	}
 	/**
@@ -131,7 +145,11 @@ public class BibliothequeService {
 	@Produces({MediaType.APPLICATION_JSON , MediaType.APPLICATION_XML})
 	public String removeAuthor(@PathParam(value  = "id")int id){
 		System.out.println("search by identity");
+		try {
 		bibliothequeDaoRepositoryJPA.removeAuteur(id);
+		}catch(EntityNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 		return " Book "+id+" deleted " ;
 	}
 }
