@@ -4,8 +4,9 @@ Ceci est un mini projet qui a pour but de mettre en oeuvre les connaissances dan
 - **Git**
 - **Docker** ( create image with Dockerfile, build and orckestration with docker-compose)
 
-## Run  : 
+## Executer sous docker  : 
+- configurer mysql dans le fichier persistence.xml
 - lancer la commande **docker build -t miniproj .**
 - puis : **docker-compose up** pour lancer l'application sous docker
 ## REST Client
- veuillez bien faire un premier GET de **http://127.0.0.1:8091/bibliotheque/init **  pour initiliser la base de données qui est vide par défaut.
+ Une fois l'application lancée, veuillez bien faire un premier GET de **http://127.0.0.1:8091/bibliotheque/init **  pour initiliser la base de données qui est vide par défaut.
