@@ -1,21 +1,41 @@
 version: '3'
-services: 
-  mysql:
-      image: mysql:latest
-      restart: always
-      container_name: mysql
-      environment:
-          MYSQL_ROOT_PASSWORD: admin
-      ports: 
-          - 3306:3306
-  miniproj:
-      restart: always
-      image: miniproj
-      container_name: miniproj
-      ports:
-          - 8091:8091
-            #volumes:
+services:
+    mysql:
+        image: mysql:latest
+        restart: always
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: admin
+        ports:
+            - 3307:3306
+    opaback:
+        image: pcisse200/indoor:5.0
+        container_name: opaback
+        environment:
+            MYSQL_ROOT_PASSWORD: MAVEN_CONFIG=/var/maven/.m2
+        ports:
+            - 8091:8091
+              #volumes:
             # - ./pipeline:/usr/share/logstash/pipeline:ro
-      depends_on:
-          - mysql
-       # - ./pipeline:/usr/share/logstash/pipeline:ro
+        volumes:
+            - C:\Users\Utilisateur\.m2:/var/maven/.m2
+            - C:\Users\Utilisateur\.config:/var/maven/.config
+        depends_on:
+            - mysql
+            - opaflask
+            # - ./pipeline:/usr/share/logstash/pipeline:ro
+    notebook:
+        image: jupyter/datascience-notebook:r-4.0.3
+
+        container_name: notebook
+        ports:
+            - 9001:8888
+              #volumes:
+            # - ./pipeline:/usr/share/logstash/pipeline:ro
+        volumes:
+            - C:\m1-opa-projet-flask-reseaudeneurone-projet-2021:/home/jovyan/work
+    opaflask:
+        image: pcisse200/machine-learning:5.1
+        container_name: opaflask
+        ports:
+            - 6000:6000
