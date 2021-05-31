@@ -8,13 +8,48 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import java.net.*;
+import java.util.Enumeration;
 
 /**
  * Client created 13/05/2021
  */
 @Log
 public class RestClient {
-    public static void main(String[] args) {
+
+    public static String getIpAdress() {
+        String ip;
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                NetworkInterface iface = interfaces.nextElement();
+                // filters out 127.0.0.1 and inactive interfaces
+                if (iface.isLoopback() || !iface.isUp())
+                    continue;
+
+                Enumeration<InetAddress> addresses = iface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress addr = addresses.nextElement();
+
+                    // *EDIT*
+                    if (addr instanceof Inet6Address) continue;
+
+                    ip = addr.getHostAddress();
+                    if (iface.getDisplayName().contains("Wireless"))
+                        return ip;
+                    System.out.println("" + " " + ip);
+                }
+            }
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+        return  null ;
+    }
+
+    public static void main(String[] args) throws UnknownHostException {
+
+
+        System.out.println(getIpAdress());
 
 
         Client client = ClientBuilder.newClient();
